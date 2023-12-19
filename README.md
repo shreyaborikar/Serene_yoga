@@ -30,8 +30,25 @@ node index.js
 END TO END WORKFLOW OF THE PROJECT:
 
 
-
+This is the home page of the website:
 
 <img width="952" alt="home page" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/21508139-d56a-4fab-81e1-0936d41c520f">
 
+This is the about page of the website:
+
  
+<img width="954" alt="about page" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/13048b60-7b85-462b-9b4f-a92ccf2d194f">
+
+This is the registration page :
+<img width="707" alt="registration" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/d724bc0f-ac82-4d1b-a45c-af636bf87eb5">
+
+After registration, user is redirected to login page:
+<img width="530" alt="Login" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/afcd7bc2-5552-4104-80de-18b72686e455">
+
+After login, user is redirected to details:
+
+<img width="443" alt="Details" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/a463c53c-0ffd-4802-b5d1-b2cbcd00d8e6">
+Logout button is also there.
+
+
+
