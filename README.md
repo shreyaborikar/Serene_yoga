@@ -40,6 +40,7 @@ This is the about page of the website:
 <img width="954" alt="about page" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/13048b60-7b85-462b-9b4f-a92ccf2d194f">
 
 This is the registration page :
+This does not allow the usernames which are already present in the database.
 <img width="707" alt="registration" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/d724bc0f-ac82-4d1b-a45c-af636bf87eb5">
 
 After registration, user is redirected to login page:
@@ -48,6 +49,7 @@ After registration, user is redirected to login page:
 After login, user is redirected to details:
 
 <img width="443" alt="Details" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/a463c53c-0ffd-4802-b5d1-b2cbcd00d8e6">
+
 Logout button is also there.
 
 
