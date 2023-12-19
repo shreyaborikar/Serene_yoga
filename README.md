@@ -44,6 +44,7 @@ This does not allow the usernames which are already present in the database.
 <img width="707" alt="registration" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/d724bc0f-ac82-4d1b-a45c-af636bf87eb5">
 
 After registration, user is redirected to login page:
+
 <img width="530" alt="Login" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/afcd7bc2-5552-4104-80de-18b72686e455">
 
 After login, user is redirected to details:
