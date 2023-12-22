@@ -27,6 +27,14 @@ node index.js
 - After installation, start the MongoDB server. This can typically be done by running the mongod command in your terminal or command prompt.
 - Open a new terminal or command prompt and run the mongo command to access the MongoDB shell.
 
+ER Diagram of the database:
+
+<img width="221" alt="erd" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/faccc49e-f29e-4d7a-b39c-d4b0c7e75956">
+
+Entry in the database:
+
+<img width="403" alt="db entry" src="https://github.com/shreyaborikar/Serene_yoga/assets/92396167/048a329c-054e-41fa-aefb-aecf19b3bc66">
+
 END TO END WORKFLOW OF THE PROJECT:
 
 
