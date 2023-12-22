@@ -1,58 +1,131 @@
 // backend/index.js
 // const express = require('express');
 // const bodyParser = require('body-parser');
-// const sqlite3 = require('sqlite3').verbose();
+// const mongoose = require('mongoose');
+// const db = require('./db');
 
 // const app = express();
 // const PORT = 3001;
-
-// // SQLite database setup
-// const db = new sqlite3.Database(':memory:');
-
-// db.serialize(() => {
-//   db.run('CREATE TABLE IF NOT EXISTS enrollments (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, batch TEXT)');
+// const enrollmentSchema = new mongoose.Schema({
+//   name: {type: String, unique: true, required: true},
+//   pass: String,
+//   age: Number,
+//   batch: String,
 // });
 
-// // Middleware
+// const cors=require("cors");
+// const corsOptions ={
+//    origin:'*', 
+//    credentials:true,            
+//    optionSuccessStatus:200,
+// }
+
+// app.use(cors(corsOptions)) 
+// const Enrollment = mongoose.model('Enrollment', enrollmentSchema);
+
 // app.use(bodyParser.json());
 
-// // API to enroll participants
-// app.post('/api/enroll', (req, res) => {
-//   const { name, age, selectedBatch } = req.body;
 
-//   // Basic validation
-//   if (!name || !age || !selectedBatch) {
+// app.post('/api/enroll', async (req, res) => {
+//   const { name,pass, age, selectedBatch } = req.body;
+
+
+//   if (!name || !pass || !age || !selectedBatch) {
 //     return res.status(400).json({ success: false, message: 'Incomplete data' });
 //   }
 
-//   // Mock function to complete payment
-//   const paymentResult = CompletePayment(name, age, selectedBatch);
-
-//   if (paymentResult) {
-//     // Store data in the database
-//     db.run('INSERT INTO enrollments (name, age, batch) VALUES (?, ?, ?)', [name, age, selectedBatch], (err) => {
-//       if (err) {
-//         return res.status(500).json({ success: false, message: 'Internal Server Error' });
-//       }
-
-//       return res.json({ success: true, message: 'Enrollment successful' });
+//   try {
+//     const enrollment = new Enrollment({
+//       name,
+//       pass,
+//       age,
+//       batch: selectedBatch,
+//       fees_details : []
 //     });
-//   } else {
-//     return res.status(500).json({ success: false, message: 'Payment failed' });
+
+//     await enrollment.save();
+
+//     return res.json({ success: true, message: 'Enrollment successful', 'Access-Control-Allow-Origin' : 'http://localhost:3000',
+//     'Access-Control-Allow-Credentials' : true,
+//     'Access-Control-Allow-Methods' :  'POST',
+//      });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ success: false, message: 'Internal Server Error' });
 //   }
 // });
 
-// // Start the server
+// app.post('/authenticate', async (req, res) => {
+//   const { name, pass } = req.body;
+// console.log(name,pass);
+//   try {
+//     const user = await Enrollment.findOne({name, pass });
+
+//     if (user) {
+//       res.json({ success: true, message: 'Authentication successful' });
+//     } else {
+//       res.status(401).json({ success: false, message: 'Authentication failed' });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: 'Internal Server Error' });
+//   }
+// });
+
+// app.get('/getUser', async (req, res) => {
+//   try {
+//     const { name } = req.query;
+
+//     if (!name) {
+//       return res.status(400).json({ error: 'Name parameter is required' });
+//     }
+
+//     const enrollment = await Enrollment.findOne({ name });
+
+//     if (!enrollment) {
+//       return res.status(404).json({ error: 'User not found' });
+//     }
+
+//     res.json(enrollment);
+//   } catch (error) {
+//     console.error('Error fetching enrollment:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+// function CompletePayment(name, pass, age, batch) {
+//   return { success: true, message: 'Payment successful' };
+// }
+
+// app.post('/api/completePayment', (req, res) => {
+//   const { name, pass, age, batch } = req.body;
+
+//   const paymentResult = completePayment(name, pass, age, batch);
+
+//   res.json(paymentResult);
+// });
+
+// app.post('/api/submitForm', async (req, res) => {
+//   const paymentResponse = CompletePayment(req.body); 
+//   res.json({ success: paymentResponse.success, message: paymentResponse.message });
+// });
+
+// app.get('/api/checkUsername', async (req, res) => {
+//   try {
+//     const { username } = req.query;
+//     const user = await Enrollment.findOne({ name: username });
+
+//     res.json({ exists: !!user });
+//   } catch (error) {
+//     console.error('Error checking username:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
 // app.listen(PORT, () => {
 //   console.log(`Server is running on http://localhost:${PORT}`);
 // });
 
-// // Mock function to complete payment (you don't need to implement this)
-// function CompletePayment(name, age, batch) {
-//   // Your logic to complete the payment goes here
-//   // Return true if payment is successful, false otherwise
-//   return true;
-// }
+
 
 // backend/index.js
 const express = require('express');
@@ -155,6 +228,22 @@ app.get('/getUser', async (req, res) => {
   } catch (error) {
     console.error('Error fetching enrollment:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Endpoint to check if a username already exists
+app.get('/api/checkUsername', async (req, res) => {
+  try {
+    const { username } = req.query;
+
+    // Check if the username exists in the database
+    const user = await Enrollment.findOne({ name: username });
+
+    // Send the result to the client
+    res.json({ exists: !!user });
+  } catch (error) {
+    console.error('Error checking username:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
